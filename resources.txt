@@ -1,7 +1,10 @@
 mathjax-notab.js application/javascript
 (function() {
-    window.fooTestProperty = ("mathjax-notab v2 loading...");
-    console.log(window.MathJax);
-    MathJax.Hub.Config({menuSettings: {inTabOrder: false}});
-    window.fooTestProperty = ("mathjax-notab v2 loaded");
+    console.log("mathjax-notab v3 loaded");
+    if (!window.MathJax) {
+        console.log("error: window.MathJax is", window.MathJax);
+    } else {
+        MathJax.Hub.Config({menuSettings: {inTabOrder: false}});
+        console.log("successfully set MathJax config");
+    }
 })();
