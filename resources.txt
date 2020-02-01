@@ -1,0 +1,9 @@
+mathjax-notab.js application/javascript
+(function() {
+	window.MathJax = {
+        menuSettings: {
+            inTabOrder: false,
+        }
+    };
+    window.fooTestProperty = "mathjax-notab loaded";
+})();
