@@ -1,6 +1,6 @@
 mathjax-notab.js application/javascript
 (function() {
-    console.log(window.MathJax);
+    console.log(document.body.innerHTML);
     MathJax.Hub.Config({menuSettings: {inTabOrder: false}});
     window.fooTestProperty = "mathjax-notab loaded";
 })();
