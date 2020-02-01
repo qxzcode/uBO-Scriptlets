@@ -1,5 +1,6 @@
 mathjax-notab.js application/javascript
 (function() {
+    console.log(document.head.children);
 	window.MathJax = {
         menuSettings: {
             inTabOrder: false,
