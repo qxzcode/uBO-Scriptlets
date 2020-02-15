@@ -1,3 +1,4 @@
+# Makes it so MathJax doesn't get selected when tabbing between form inputs.
 mathjax-notab.js application/javascript
 (function() {
     console.log("mathjax-notab v3 loaded");
@@ -7,4 +8,17 @@ mathjax-notab.js application/javascript
         MathJax.Hub.Config({menuSettings: {inTabOrder: false}});
         console.log("successfully set MathJax config");
     }
+})();
+
+# Clicks an element by selector on page load.
+click-on-load.js application/javascript
+(function() {
+    console.log("click-on-load v1 loaded");
+    var selector = '{{1}}';
+    if (selector === '' || selector === '{{1}}') {
+        return;
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector(selector).click();
+    });
 })();
