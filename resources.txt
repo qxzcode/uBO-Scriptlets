@@ -13,7 +13,7 @@ mathjax-notab.js application/javascript
 # Clicks an element by selector on page load.
 click-on-load.js application/javascript
 (function() {
-    console.log("click-on-load v3 loaded");
+    console.log("click-on-load v4 loaded");
     var selector = '{{1}}';
     if (selector === '' || selector === '{{1}}') {
         console.log('click-on-load: no selector provided');
@@ -33,7 +33,7 @@ click-on-load.js application/javascript
         eventName = 'DOMContentLoaded';
     }
     if (urlRegex.test(window.location.href.split("#")[0])) {
-        document.addEventListener(eventName, function() {
+        window.addEventListener(eventName, function() {
             var element = document.querySelector(selector);
             if (element === null) {
                 console.log('click-on-load: no element for selector ' + selector);
