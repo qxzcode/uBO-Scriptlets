@@ -43,3 +43,42 @@ click-on-load.js application/javascript
         });
     }
 })();
+
+# Clicks an element by selector when it is added to the DOM.
+click-on-add.js application/javascript
+(function() {
+    console.log("click-on-add v1 loaded");
+    var parentSelector = '{{1}}';
+    if (parentSelector === '' || parentSelector === '{{1}}') {
+        parentSelector = 'body';
+    }
+    var targetSelector = '{{2}}';
+    if (targetSelector === '' || targetSelector === '{{2}}') {
+        console.log('click-on-add: no target selector provided');
+        return;
+    }
+    var urlRegex = '{{3}}';
+    if (urlRegex === '' || urlRegex === '{{3}}') {
+        urlRegex = '.?';
+    } else if (/^\/.+\/$/.test(urlRegex)) {
+        urlRegex = urlRegex.slice(1,-1);
+    } else {
+        urlRegex = urlRegex.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+    urlRegex = new RegExp(urlRegex);
+    if (urlRegex.test(window.location.href.split("#")[0])) {
+        var observer = new MutationObserver(function() {
+            var target = document.querySelector(targetSelector);
+            if (target !== null) {
+                target.click();
+                observer.disconnect();
+            }
+        });
+        var parent = document.querySelector(parentSelector);
+        if (parent === null) {
+            console.log('click-on-add: no element for parent selector ' + parentSelector);
+        } else {
+            observer.observe(parent, {childList: true, subtree: true});
+        }
+    }
+})();
