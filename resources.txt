@@ -13,12 +13,29 @@ mathjax-notab.js application/javascript
 # Clicks an element by selector on page load.
 click-on-load.js application/javascript
 (function() {
-    console.log("click-on-load v1 loaded");
+    console.log("click-on-load v2 loaded");
     var selector = '{{1}}';
     if (selector === '' || selector === '{{1}}') {
+        console.log('click-on-load: no selector provided');
         return;
     }
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelector(selector).click();
-    });
+    var urlRegex = '{{2}}';
+    if (urlRegex === '' || urlRegex === '{{2}}') {
+        urlRegex = '.?';
+	} else if (/^\/.+\/$/.test(urlRegex)) {
+		urlRegex = urlRegex.slice(1,-1);
+	} else {
+		urlRegex = urlRegex.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+	urlRegex = new RegExp(urlRegex);
+    if (urlRegex.test(window.location.href.split("#")[0])) {
+        document.addEventListener("DOMContentLoaded", function() {
+            var element = document.querySelector(selector);
+            if (element === null) {
+                console.log('click-on-load: no element for selector ' + selector);
+            } else {
+                element.click();
+            }
+        });
+    }
 })();
