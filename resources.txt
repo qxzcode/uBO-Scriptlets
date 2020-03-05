@@ -82,3 +82,28 @@ click-on-add.js application/javascript
         }
     }
 })();
+
+# Loads lazy-load images when they're scrolled into view.
+lazy-load-images.js application/javascript
+(function() {
+    console.log("lazy-load-images v1 loaded");
+    var srcAttribute = '{{1}}';
+    if (srcAttribute === '' || srcAttribute === '{{1}}') {
+        console.log('lazy-load-images: no src attribute provided');
+        return;
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+        var imgs = document.querySelectorAll('img[' + srcAttribute + ']');
+        if (imgs.length === 0) {
+            console.log('lazy-load-images: no <img> tags with attribute ' + srcAttribute);
+        } else {
+            var observer = new IntersectionObserver(entries => entries.forEach(entry => {
+                if (entry.intersectionRatio > 0.0) {
+                    entry.target.src = entry.target.getAttribute(srcAttribute);
+                    observer.unobserve(entry.target);
+                }
+            }), {rootMargin: '150px', threshold: 0.0});
+            imgs.forEach(img => observer.observe(img));
+        }
+    });
+})();
