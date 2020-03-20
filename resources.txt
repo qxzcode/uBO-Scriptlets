@@ -47,7 +47,7 @@ click-on-load.js application/javascript
 # Clicks an element by selector when it is added to the DOM.
 click-on-add.js application/javascript
 (function() {
-    console.log("click-on-add v1 loaded");
+    console.log("click-on-add v2 loaded");
     var parentSelector = '{{1}}';
     if (parentSelector === '' || parentSelector === '{{1}}') {
         parentSelector = 'body';
@@ -67,19 +67,21 @@ click-on-add.js application/javascript
     }
     urlRegex = new RegExp(urlRegex);
     if (urlRegex.test(window.location.href.split("#")[0])) {
-        var observer = new MutationObserver(function() {
-            var target = document.querySelector(targetSelector);
-            if (target !== null) {
-                target.click();
-                observer.disconnect();
+        window.addEventListener('DOMContentLoaded', function() {
+            var parent = document.querySelector(parentSelector);
+            if (parent === null) {
+                console.log('click-on-add: no element for parent selector ' + parentSelector);
+            } else {
+                var observer = new MutationObserver(function() {
+                    var target = document.querySelector(targetSelector);
+                    if (target !== null) {
+                        target.click();
+                        observer.disconnect();
+                    }
+                });
+                observer.observe(parent, {childList: true, subtree: true});
             }
         });
-        var parent = document.querySelector(parentSelector);
-        if (parent === null) {
-            console.log('click-on-add: no element for parent selector ' + parentSelector);
-        } else {
-            observer.observe(parent, {childList: true, subtree: true});
-        }
     }
 })();
 
