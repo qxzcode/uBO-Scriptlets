@@ -109,3 +109,10 @@ lazy-load-images.js application/javascript
         }
     });
 })();
+
+# Neutered PayPal pa.js
+paypal-pa.js application/javascript
+(function() {
+    window.PAYPAL = {};
+    window.fpti = {};
+})();
