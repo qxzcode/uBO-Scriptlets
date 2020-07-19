@@ -94,6 +94,10 @@ lazy-load-images.js application/javascript
         console.log('lazy-load-images: no src attribute provided');
         return;
     }
+    var dstAttribute = '{{2}}';
+    if (dstAttribute === '' || dstAttribute === '{{2}}') {
+        dstAttribute = 'src';
+    }
     window.addEventListener('DOMContentLoaded', function() {
         var imgs = document.querySelectorAll('img[' + srcAttribute + ']');
         if (imgs.length === 0) {
@@ -101,7 +105,7 @@ lazy-load-images.js application/javascript
         } else {
             var observer = new IntersectionObserver(entries => entries.forEach(entry => {
                 if (entry.intersectionRatio > 0.0) {
-                    entry.target.src = entry.target.getAttribute(srcAttribute);
+                    entry.target[dstAttribute] = entry.target.getAttribute(srcAttribute);
                     observer.unobserve(entry.target);
                 }
             }), {rootMargin: '150px', threshold: 0.0});
